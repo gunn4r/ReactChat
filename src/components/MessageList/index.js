@@ -11,7 +11,7 @@ const MessageList = (props) => (
         >
           <div className="text">
             {message.text}
-            <span className="metadata"> @ {message.timestamp}</span>
+            <span className="metadata"> @ {new Date(message.timestamp).toString()}</span>
           </div>
         </div>
       ))
@@ -20,8 +20,3 @@ const MessageList = (props) => (
 )
 
 export default MessageList
-// store.dispatch({
-//       type: 'ADD_MESSAGE',
-//       text: this.state.value,
-//       threadId: this.props.threadId,
-//     });

@@ -1,37 +1,34 @@
 import React from 'react'
 import store from '../../store'
-import MessageInput from '../MessageInput'
 import Thread from '../Thread'
 
 export default class ThreadDisplay extends React.Component {
-  handleClick = (id) => {
-    store.dispatch({
-      type: 'DELETE_MESSAGE',
-      id,
-    });
-  };
+  componentDidMount() {
+    store.subscribe(() => this.forceUpdate())
+  }
 
   render() {
-    const messages = this.props.thread.messages.map((message) => (
-      <div
-        className='comment'
-        key={message.id}
-        onClick={() => this.handleClick(message.id)}
-      >
-        <div className="text">
-          {message.text}
-          <span className="metadata"> @ {new Date(message.timestamp).toString()}</span>
-        </div>
-      </div>
-    ))
+    const state = store.getState()
+    const { activeThreadId: threadId } = state
+    const activeThread = state.threads.find(thread => thread.id === threadId)
 
     return (
-      <div className='ui center aligned basic segment'>
-        <div className='ui comments'>
-          {messages}
-        </div>
-        <MessageInput threadId={this.props.thread.id} />
-      </div>
+      <Thread
+        thread={activeThread}
+        onMessageClick={(id) => (
+          store.dispatch({
+            type: 'DELETE_MESSAGE',
+            id,
+          })
+        )}
+        onMessageSubmit={(text) => (
+            store.dispatch({
+              type: 'ADD_MESSAGE',
+              text,
+              threadId,
+            })
+          )}
+      />
     )
   }
 }

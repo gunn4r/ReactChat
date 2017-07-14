@@ -7,6 +7,7 @@ const Tabs = (props) => (
         <div
           key={index}
           className={tab.active ? 'active item' : 'item'}
+          style={{ cursor: 'pointer' }}
           onClick={() => props.onClick(tab.id)}
         >
           {tab.title}
