@@ -1,8 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 import App from './components/App'
 import store from './store'
 import './index.css'
 import './semantic-dist/semantic.min.css'
 
-ReactDOM.render(<App store={store} />, document.getElementById('root'))
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+)
