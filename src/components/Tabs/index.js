@@ -8,7 +8,7 @@ const Tabs = (props) => (
           key={index}
           className={tab.active ? 'active item' : 'item'}
           style={{ cursor: 'pointer' }}
-          onClick={() => props.onClick(tab.id)}
+          onClick={() => props.openThread(tab.id)}
         >
           {tab.title}
         </div>
